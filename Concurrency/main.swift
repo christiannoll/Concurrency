@@ -3,27 +3,29 @@ import Foundation
 
 func performTaskA() async -> Int {
     print("Start A")
+    let waitForSeconds: UInt64 = 10
     do {
         // Wait for 10 seconds
-        try await Task.sleep(nanoseconds: 10 * 1_000_000_000)
+        try await Task.sleep(nanoseconds: waitForSeconds * 1_000_000_000)
         print("End A")
     }
     catch {
         print("Error")
     }
-    return 3
+    return Int(waitForSeconds)
 }
 
 func performTaskB() async -> Int {
     print("Start B")
+    let waitForSeconds: UInt64 = 5
     do {
-        try await Task.sleep(nanoseconds: 5 * 1_000_000_000)
+        try await Task.sleep(nanoseconds: waitForSeconds * 1_000_000_000)
         print("End B")
     }
     catch {
         print("Error")
     }
-    return 2
+    return Int(waitForSeconds)
 }
 
 let runLoop = CFRunLoopGetCurrent()
