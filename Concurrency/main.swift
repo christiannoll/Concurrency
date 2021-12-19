@@ -3,16 +3,26 @@ import Foundation
 
 func performTaskA() async -> Int {
     print("Start A")
-    // Wait for 10 seconds
-    await Task.sleep(10 * 1_000_000_000)
-    print("End A")
+    do {
+        // Wait for 10 seconds
+        try await Task.sleep(nanoseconds: 10 * 1_000_000_000)
+        print("End A")
+    }
+    catch {
+        print("Error")
+    }
     return 3
 }
 
 func performTaskB() async -> Int {
     print("Start B")
-    await Task.sleep(11 * 1_000_000_000)
-    print("End B")
+    do {
+        try await Task.sleep(nanoseconds: 5 * 1_000_000_000)
+        print("End B")
+    }
+    catch {
+        print("Error")
+    }
     return 2
 }
 
