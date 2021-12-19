@@ -32,6 +32,8 @@ let runLoop = CFRunLoopGetCurrent()
 
 func doSomething() {
     Task(priority: .high) {
+        let start = Date()
+        
         // Create & start a child task
         async let a = performTaskA()
 
@@ -39,7 +41,10 @@ func doSomething() {
         async let b = performTaskB()
 
         let sum = await (a + b)
-        print(sum)
+        
+        print("\nExpected time if sequentially executed: \(sum) seconds")
+        print("Real time simultaneously executed: \(Int(start.timeIntervalSinceNow * -1)) seconds\n")
+        
         CFRunLoopStop(runLoop)
     }
 }
