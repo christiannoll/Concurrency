@@ -2,30 +2,29 @@ import Foundation
 
 
 func performTaskA() async -> Int {
-    print("Start A")
-    let waitForSeconds: UInt64 = 10
+    print("Start Task A")
+    let secondsToWait: UInt64 = 10
     do {
-        // Wait for 10 seconds
-        try await Task.sleep(nanoseconds: waitForSeconds * 1_000_000_000)
-        print("End A")
+        try await Task.sleep(nanoseconds: secondsToWait * 1_000_000_000)
+        print("End Task A")
     }
     catch {
-        print("Error")
+        print("Error while trying to perform task A")
     }
-    return Int(waitForSeconds)
+    return Int(secondsToWait)
 }
 
 func performTaskB() async -> Int {
-    print("Start B")
-    let waitForSeconds: UInt64 = 5
+    print("Start Task B")
+    let secondsToWait: UInt64 = 5
     do {
-        try await Task.sleep(nanoseconds: waitForSeconds * 1_000_000_000)
-        print("End B")
+        try await Task.sleep(nanoseconds: secondsToWait * 1_000_000_000)
+        print("End Task B")
     }
     catch {
-        print("Error")
+        print("Error while trying to perform task B")
     }
-    return Int(waitForSeconds)
+    return Int(secondsToWait)
 }
 
 let runLoop = CFRunLoopGetCurrent()
@@ -34,10 +33,8 @@ func doSomething() {
     Task(priority: .high) {
         let start = Date()
         
-        // Create & start a child task
         async let a = performTaskA()
 
-        // Create & start a child task
         async let b = performTaskB()
 
         let sum = await (a + b)
